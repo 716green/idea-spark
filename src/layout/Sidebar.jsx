@@ -9,8 +9,8 @@ const Sidebar = (props) => {
 
   useEffect(() => {
     const classValue = showSidebar
-      ? "lg:left-0 sm:translate-x-0 translate-x-0 sm:left-0 left-0"
-      : "sm:translate-x-full translate-x-full lg:-left-full md:-left-full sm:left-full";
+      ? "lg:left-0 md:left-0 sm:translate-x-0 translate-x-0 sm:left-0 left-0"
+      : "lg:-translate-x-full md:-translate-x-full sm:translate-x-full translate-x-full lg:-left-full md:-left-full sm:left-full left-full";
     setSidebarClass(classValue);
   }, [showSidebar]);
 
