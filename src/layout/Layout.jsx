@@ -2,9 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import StoreContext from "../context/StoreContext";
 import Sidebar from "./Sidebar";
 import Auth from "../auth/Auth";
-
-const sidebarColor = "#2563EB";
-// const userIsLoggedIn = false;
+import { sidebarColor } from "../theme";
 
 const Layout = ({ children }) => {
   const [user, setUser] = useState();
