@@ -7,15 +7,8 @@ const Auth = () => {
 
   const googleSigninHandler = async () => {
     const result = await loginWithGoogle();
-    const { uid, email, displayName, photoURL } = result.user;
-    const user = {
-      uid,
-      email,
-      name: displayName,
-      avatar: photoURL,
-    };
-    localStorage.setItem("user", JSON.stringify(user));
-    setStore({ ...store, user });
+    localStorage.setItem("user", JSON.stringify(result.user));
+    setStore({ ...store, user: result.user });
   };
 
   return (

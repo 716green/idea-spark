@@ -58,7 +58,7 @@ const Sidebar = (props) => {
       >
         <h3 className="mt-20 text-4xl font-semibold text-white text-center">
           <span className="absolute text-center w-full top-6 left-0">
-            sidebar
+            ideaspark
           </span>
           <ul>
             {menuItems.map((item, i) => (
