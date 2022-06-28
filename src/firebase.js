@@ -6,6 +6,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   getRedirectResult,
+  onAuthStateChanged,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -18,31 +19,29 @@ const firebaseConfig = {
   measurementId: "G-TV14QS4FT0",
 };
 
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
-export const auth = getAuth(firebaseApp);
+export const auth = getAuth(app);
 
 // TODO
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
     const uid = user.uid;
-    // ...
+    console.log({ status: "signed in", user, uid });
+    localStorage.setItem("user", JSON.stringify(user));
   } else {
-    // User is signed out
-    // ...
+    console.log({ status: "signed out" });
   }
 });
 
 // TODO
 signOut(auth)
   .then(() => {
+    console.log("signed out");
     // Sign-out successful.
   })
   .catch((error) => {
+    console.error(error);
     // An error happened.
   });
 
@@ -50,44 +49,46 @@ const provider = new GoogleAuthProvider();
 
 // TODO
 // OPTION 1
-signInWithPopup(auth, provider)
-  .then((result) => {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
-    // The signed-in user info.
-    const user = result.user;
-    // ...
-  })
-  .catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
-  });
+export const loginWithGoogle = async () => {
+  return await signInWithPopup(auth, provider)
+    .then((result) => {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      // const credential = GoogleAuthProvider.credentialFromResult(result);
+      // const token = credential.accessToken;
+      // The signed-in user info.
+      // const user = result.user;
 
-// TODO
-// OPTION 2
-getRedirectResult(auth)
-  .then((result) => {
-    // This gives you a Google Access Token. You can use it to access Google APIs.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
+      // console.log({ credential, token, user });
+      // return { credential, token, user };
+      return result;
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      const email = error.email;
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      console.error({ errorCode, errorMessage, email, credential });
+    });
+};
 
-    // The signed-in user info.
-    const user = result.user;
-  })
-  .catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
-  });
+// TODO is this needed?
+// // OPTION 2
+// getRedirectResult(auth)
+//   .then((result) => {
+//     // This gives you a Google Access Token. You can use it to access Google APIs.
+//     const credential = GoogleAuthProvider.credentialFromResult(result);
+//     const token = credential.accessToken;
+
+//     // The signed-in user info.
+//     const user = result.user;
+//   })
+//   .catch((error) => {
+//     // Handle Errors here.
+//     const errorCode = error.code;
+//     const errorMessage = error.message;
+//     // The email of the user's account used.
+//     const email = error.email;
+//     // The AuthCredential type that was used.
+//     const credential = GoogleAuthProvider.credentialFromError(error);
+//     // ...
+//   });

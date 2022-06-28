@@ -1,12 +1,23 @@
+import React, { useContext } from "react";
 import Layout from "./layout/Layout";
-import "./App.css";
+import StoreContext from "./context/StoreContext";
 
-function App() {
+const App = () => {
+  const { store, setStore } = useContext(StoreContext);
   return (
-    <div className="flex justify-center">
-      <Layout>hello world</Layout>
-    </div>
+    <>
+      <span>
+        <code>
+          <pre>{JSON.stringify(store)}</pre>
+        </code>
+      </span>
+      <div className="flex justify-center">
+        <Layout>
+          {/* <span className="text-xl">Hello {store.user.name}</span> */}
+        </Layout>
+      </div>
+    </>
   );
-}
+};
 
 export default App;

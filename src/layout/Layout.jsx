@@ -1,20 +1,26 @@
 import React from "react";
 import Sidebar from "./Sidebar";
+import Auth from "../auth/Auth";
 
 const sidebarColor = "#2563EB";
+const userIsLoggedIn = false;
 
-function Layout(props) {
+const Layout = ({ children }) => {
   return (
     <>
-      <section
-        id="sidebar"
-        className="flex flex-col items-center justify-center min-h-screen py-2"
-      >
-        <Sidebar sidebarColor={sidebarColor} />
-        <main>{props.children}</main>
-      </section>
+      {userIsLoggedIn ? (
+        <section
+          id="sidebar"
+          className="flex flex-col items-center justify-center min-h-screen py-2"
+        >
+          <Sidebar sidebarColor={sidebarColor} />
+          <main>{children}</main>
+        </section>
+      ) : (
+        <Auth />
+      )}
     </>
   );
-}
+};
 
 export default Layout;
