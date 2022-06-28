@@ -1,8 +1,10 @@
-import { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { XIcon, MenuIcon } from "@heroicons/react/solid";
-import { useEffect } from "react";
+import { signUserOut } from "../firebase";
+import StoreContext from "../context/StoreContext";
 
 const Sidebar = (props) => {
+  const { store, setStore } = useContext(StoreContext);
   const [showSidebar, setShowSidebar] = useState(false);
   const [sidebarClass, setSidebarClass] = useState("");
   const toggleSidebar = () => setShowSidebar(!showSidebar);
@@ -14,10 +16,17 @@ const Sidebar = (props) => {
     setSidebarClass(classValue);
   }, [showSidebar]);
 
+  const signoutHandler = () => {
+    const s = { ...store };
+    delete s.user;
+    setStore(s);
+    signUserOut();
+  };
+
   const menuItems = [
     { label: "first", action: () => console.log("first") },
     { label: "second", action: () => console.log("second") },
-    { label: "third", action: () => console.log("third") },
+    { label: "Log Out", action: () => signoutHandler() },
   ];
 
   return (

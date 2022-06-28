@@ -1,22 +1,26 @@
-import React, { useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import Layout from "./layout/Layout";
 import StoreContext from "./context/StoreContext";
-
 const App = () => {
   const { store, setStore } = useContext(StoreContext);
+
+  const setCachedUser = () => {
+    const u = localStorage.getItem("user");
+    if (!!u) setStore({ ...store, user: JSON.parse(u) });
+  };
+
+  useEffect(() => {
+    setCachedUser();
+  }, []);
+
   return (
-    <>
-      <span>
-        <code>
-          <pre>{JSON.stringify(store)}</pre>
-        </code>
-      </span>
-      <div className="flex justify-center">
-        <Layout>
-          {/* <span className="text-xl">Hello {store.user.name}</span> */}
-        </Layout>
-      </div>
-    </>
+    <div className="flex justify-center">
+      <Layout>
+        <section>
+          <span className="text-xl block">Hello {store?.user?.name}</span>
+        </section>
+      </Layout>
+    </div>
   );
 };
 

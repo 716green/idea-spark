@@ -5,7 +5,6 @@ import {
   signOut,
   GoogleAuthProvider,
   signInWithPopup,
-  getRedirectResult,
   onAuthStateChanged,
 } from "firebase/auth";
 
@@ -23,45 +22,25 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 
-// TODO
 onAuthStateChanged(auth, (user) => {
-  if (user) {
-    const uid = user.uid;
-    console.log({ status: "signed in", user, uid });
-    localStorage.setItem("user", JSON.stringify(user));
-  } else {
-    console.log({ status: "signed out" });
-  }
+  if (!!user) console.log("signed in");
+  else signUserOut();
 });
 
-// TODO
-signOut(auth)
-  .then(() => {
-    console.log("signed out");
-    // Sign-out successful.
-  })
-  .catch((error) => {
-    console.error(error);
-    // An error happened.
-  });
+export const signUserOut = () => {
+  signOut(auth)
+    .then(() => {
+      localStorage.removeItem("user");
+    })
+    .finally(() => console.log("signed out"))
+    .catch((error) => console.error(error));
+};
 
 const provider = new GoogleAuthProvider();
 
-// TODO
-// OPTION 1
 export const loginWithGoogle = async () => {
   return await signInWithPopup(auth, provider)
-    .then((result) => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      // const credential = GoogleAuthProvider.credentialFromResult(result);
-      // const token = credential.accessToken;
-      // The signed-in user info.
-      // const user = result.user;
-
-      // console.log({ credential, token, user });
-      // return { credential, token, user };
-      return result;
-    })
+    .then((result) => result)
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -70,25 +49,3 @@ export const loginWithGoogle = async () => {
       console.error({ errorCode, errorMessage, email, credential });
     });
 };
-
-// TODO is this needed?
-// // OPTION 2
-// getRedirectResult(auth)
-//   .then((result) => {
-//     // This gives you a Google Access Token. You can use it to access Google APIs.
-//     const credential = GoogleAuthProvider.credentialFromResult(result);
-//     const token = credential.accessToken;
-
-//     // The signed-in user info.
-//     const user = result.user;
-//   })
-//   .catch((error) => {
-//     // Handle Errors here.
-//     const errorCode = error.code;
-//     const errorMessage = error.message;
-//     // The email of the user's account used.
-//     const email = error.email;
-//     // The AuthCredential type that was used.
-//     const credential = GoogleAuthProvider.credentialFromError(error);
-//     // ...
-//   });

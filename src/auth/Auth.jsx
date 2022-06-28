@@ -1,20 +1,21 @@
 import React, { useContext } from "react";
-import { loginWithGoogle } from "../firebase";
 import StoreContext from "../context/StoreContext";
-import { useEffect } from "react";
+import { loginWithGoogle } from "../firebase";
 
 const Auth = () => {
   const { store, setStore } = useContext(StoreContext);
 
-  useEffect(() => {
-    console.log({ store });
-  }, [store]);
-
   const googleSigninHandler = async () => {
     const result = await loginWithGoogle();
-    // setCurrentUser(user);
-    // const newStore = { ...store, credential, token, user };
-    setStore(result);
+    const { uid, email, displayName, photoURL } = result.user;
+    const user = {
+      uid,
+      email,
+      name: displayName,
+      avatar: photoURL,
+    };
+    localStorage.setItem("user", JSON.stringify(user));
+    setStore({ ...store, user });
   };
 
   return (
