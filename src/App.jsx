@@ -17,7 +17,11 @@ const App = () => {
     <div className="flex justify-center">
       <Layout>
         <section>
-          <span className="text-xl block">Hello {store?.user?.name}</span>
+          {store?.user?.name ? (
+            <span className="text-xl block">Hello {store?.user?.name}</span>
+          ) : (
+            "User not found"
+          )}
         </section>
       </Layout>
     </div>
