@@ -24,8 +24,8 @@ const Sidebar = (props) => {
   };
 
   const menuItems = [
-    { label: "first", action: () => console.log("first") },
-    { label: "second", action: () => console.log("second") },
+    { label: "Quick Add", action: () => console.log("Quick Add") },
+    { label: "Notes", action: () => console.log("Open Notes") },
     { label: "Log Out", action: () => signoutHandler() },
   ];
 
@@ -57,15 +57,27 @@ const Sidebar = (props) => {
         className={`top-0 lg:left-0 md:left-0 sm:right-0 right-0 lg:w-96 md:w-96 sm:w-[100vw] w-[100vw] p-10 text-white fixed h-full z-40 ease-in-out duration-300 ${sidebarClass}`}
       >
         <h3 className="mt-20 text-4xl font-semibold text-white text-center">
-          <span className="absolute text-center w-full top-6 left-0">
-            ideaspark
-          </span>
+          <div className="absolute text-center w-full top-6 left-0">
+            <span className="m-auto">ideaspark</span>
+          </div>
+          <div className="flex">
+            <img
+              className="rounded-full w-12 h-12 m-auto"
+              referrerpolicy="no-referrer"
+              src={store?.user?.photoURL}
+            />
+            <div className="m-auto">
+              <span className="m-auto block text-lg">
+                {store?.user?.displayName}
+              </span>
+              <span className="m-auto block text-lg">{store?.user?.email}</span>
+            </div>
+          </div>
+          <hr className="mt-4" />
           <ul>
             {menuItems.map((item, i) => (
               <li className="text-left justify-start my-6" key={i}>
-                <button onClick={item.action}>
-                  {i} - {item.label}
-                </button>
+                <button onClick={item.action}>{item.label}</button>
               </li>
             ))}
           </ul>

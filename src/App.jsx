@@ -16,23 +16,7 @@ const App = () => {
   return (
     <div className="flex justify-center">
       <Layout>
-        <section>
-          {store?.user?.displayName ? (
-            <div>
-              <div className="flex">
-                <img
-                  className="m-auto rounded-full"
-                  src={store?.user?.photoURL}
-                />
-              </div>
-              <span className="text-xl block">
-                Hello {store?.user?.displayName}
-              </span>
-            </div>
-          ) : (
-            "User not found"
-          )}
-        </section>
+        <section>Logged in</section>
       </Layout>
     </div>
   );

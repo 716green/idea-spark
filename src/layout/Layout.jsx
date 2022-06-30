@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import StoreContext from "../context/StoreContext";
 import Sidebar from "./Sidebar";
 import Auth from "../auth/Auth";
-import { sidebarColor } from "../theme";
+import { sidebarColor } from "../theme/colors";
 
 const Layout = ({ children }) => {
   const [user, setUser] = useState();
