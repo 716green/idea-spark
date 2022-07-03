@@ -26,6 +26,7 @@ const Sidebar = (props) => {
   const menuItems = [
     { label: "Quick Add", action: () => console.log("Quick Add") },
     { label: "Notes", action: () => console.log("Open Notes") },
+    { label: "Tags", action: () => console.log("Edit Tags") },
     { label: "Log Out", action: () => signoutHandler() },
   ];
 

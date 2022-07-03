@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import Layout from "./layout/Layout";
 import StoreContext from "./context/StoreContext";
+import Workspace from "./layout/Workspace";
 const App = () => {
   const { store, setStore } = useContext(StoreContext);
 
@@ -16,7 +17,7 @@ const App = () => {
   return (
     <div className="flex justify-center">
       <Layout>
-        <section>Logged in</section>
+        <Workspace />
       </Layout>
     </div>
   );
