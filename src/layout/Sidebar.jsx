@@ -63,7 +63,7 @@ const Sidebar = (props) => {
           <div className="flex">
             <img
               className="rounded-full w-12 h-12 m-auto"
-              referrerpolicy="no-referrer"
+              referrerPolicy="no-referrer"
               src={store?.user?.photoURL}
             />
             <div className="m-auto">
