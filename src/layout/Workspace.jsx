@@ -1,9 +1,11 @@
 import React from "react";
 import TextArea from "../inputs/TextArea";
+import AllNotes from "../notes/AllNotes";
 
 const Workspace = () => {
   return (
-    <div>
+    <div className="mt-14">
+      <AllNotes />
       <TextArea />
     </div>
   );

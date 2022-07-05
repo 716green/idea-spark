@@ -17,10 +17,10 @@ const Layout = ({ children }) => {
       {user?.uid ? (
         <section
           id="sidebar"
-          className="flex flex-col items-center justify-center min-h-screen py-2"
+          className="flex w-full px-8 justify-center min-h-screen py-2"
         >
           <Sidebar sidebarColor={sidebarColor} />
-          <main>{children}</main>
+          <main className="w-full">{children}</main>
         </section>
       ) : (
         <Auth />
